@@ -3,8 +3,8 @@ namespace: /db/
 name: postgresql0
 
 restapi:
-    listen: 192.0.2.11:8008
-    connect_address: 192.0.2.11:8008
+    listen: 192.168.56.104:8008
+    connect_address: 192.168.56.104:8008
 
 etcd:
     host: 192.0.2.21:2379
@@ -24,21 +24,21 @@ bootstrap:
 
     pg_hba:
     - host replication replicator 127.0.0.1/32 md5
-    - host replication replicator 192.0.2.11/0 md5
-    - host replication replicator 192.0.2.12/0 md5
-    - host replication replicator 192.0.2.13/0 md5
+    - host replication replicator 192.168.56.104/0 md5
+    - host replication replicator 192.168.56.105/0 md5
+    - host replication replicator 192.168.56.106/0 md5
     - host all all 0.0.0.0/0 md5
 
     users:
         admin:
-            password: admin
+            password: 123
             options:
                 - createrole
                 - createdb
 
 postgresql:
-    listen: 192.0.2.11:5432
-    connect_address: 192.0.2.11:5432
+    listen: 192.168.56.104:5432
+    connect_address: 192.168.56.104:5432
     data_dir: /data/patroni
     pgpass: /tmp/pgpass
     authentication:
