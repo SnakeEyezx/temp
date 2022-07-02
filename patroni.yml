@@ -6,8 +6,8 @@ restapi:
     listen: 192.168.56.104:8008
     connect_address: 192.168.56.104:8008
 
-etcd:
-    host: 192.0.2.21:2379
+consul:
+    host: 192.168.56.103
 
 bootstrap:
     dcs:
