@@ -1,13 +1,14 @@
 scope: postgres
 namespace: /db/
-name: postgresql4
+name: postgres0
 
 restapi:
     listen: 192.168.56.104:8008
     connect_address: 192.168.56.104:8008
 
 consul:
-    host: 192.168.56.103
+    host: localhost:8500
+    url: http://localhost:8500
 
 bootstrap:
     dcs:
@@ -17,24 +18,24 @@ bootstrap:
         maximum_lag_on_failover: 1048576
         postgresql:
             use_pg_rewind: true
+            use_slots: true
+            parameters:
+                    wal_level: replica
+                    hot_standby: "on"
+                    wal_keep_segments: 5120
+                    max_wal_senders: 5
+                    max_replication_slots: 5
+                    checkpoint_timeout: 30
 
     initdb:
     - encoding: UTF8
     - data-checksums
 
     pg_hba:
-    - host replication replicator 127.0.0.1/32 md5
-    - host replication replicator 192.168.56.104/0 md5
-    - host replication replicator 192.168.56.105/0 md5
-    - host replication replicator 192.168.56.106/0 md5
+    - host replication pgreplica 127.0.0.1/32 md5
+    - host replication pgreplica 192.168.56.104/0 md5
+    - host replication pgreplica 192.168.56.105/0 md5
     - host all all 0.0.0.0/0 md5
-
-    users:
-        admin:
-            password: 123
-            options:
-                - createrole
-                - createdb
 
 postgresql:
     listen: 192.168.56.104:5432
@@ -43,13 +44,11 @@ postgresql:
     pgpass: /tmp/pgpass
     authentication:
         replication:
-            username: replicator
-            password: rep-pass
+            username: replica
+            password: replicapass
         superuser:
             username: postgres
             password: secretpassword
-    parameters:
-        unix_socket_directories: '.'
 
 tags:
     nofailover: false
