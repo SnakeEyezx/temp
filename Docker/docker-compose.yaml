@@ -1,0 +1,11 @@
+registry:
+  restart: always
+  image: registry:2
+  ports:
+    - 5000:5000
+  environment:
+    REGISTRY_HTTP_TLS_CERTIFICATE: /certs/public.pem
+    REGISTRY_HTTP_TLS_KEY: /certs/private.key
+  volumes:
+    - /var/local/docker-repo:/var/lib/registry
+    - /etc/ssl/alex:/certs
