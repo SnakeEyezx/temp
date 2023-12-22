@@ -1,6 +1,6 @@
 import requests
 
-x = requests.get('http://taskschedule-02.psql.travelata.lan:9100/metrics')
+x = requests.get('http://myhost:9100/metrics')
 
 from prometheus_client.parser import text_string_to_metric_families
 def parsemetrics(metrics):
