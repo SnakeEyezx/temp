@@ -1,6 +1,6 @@
 class Prometheus:
     def __init__(self):
-        self.url = f'https://prometheus.travadm.org/api/v1/query'
+        self.url = f'https://prometheus.org/api/v1/query'
         self.kwargs = {'headers': {'Accept': 'application/json'}, 'verify': False}
 
     def get_disk_usage(self, host):
